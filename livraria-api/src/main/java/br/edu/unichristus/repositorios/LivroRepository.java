@@ -16,5 +16,9 @@ public interface LivroRepository extends JpaRepository<Livro, Long> {
 	// uma quantidade de páginas maior que um valor informado
 	public List<Livro> 
 		findByTituloContainingAndNumeroPaginasGreaterThan(String titulo, int numeroPaginas);
+	
+	public List<Livro> findByAutoresNome(String nome);
+
+	public List<Livro> findByAutoresPais(String pais);
 
 }
