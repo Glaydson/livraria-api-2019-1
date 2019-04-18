@@ -1,5 +1,6 @@
 package br.edu.unichristus.repositorios;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,5 +21,14 @@ public interface LivroRepository extends JpaRepository<Livro, Long> {
 	public List<Livro> findByAutoresNome(String nome);
 
 	public List<Livro> findByAutoresPais(String pais);
+	
+	// Livros depois de uma data
+	public List<Livro> findByDataPublicacaoAfter(LocalDate data);
+	
+	// Livros antes de uma data
+	public List<Livro> findByDataPublicacaoBefore(LocalDate data);
+	
+	// Livros publicados entre duas datas
+	public List<Livro> findByDataPublicacaoBetween(LocalDate dataInicial, LocalDate dataFinal);
 
 }

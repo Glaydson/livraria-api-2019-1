@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name="TB_EDITORAS")
+@Table(name = "TB_EDITORAS")
 @Data
 public class Editora {
 	@Id
@@ -27,8 +27,27 @@ public class Editora {
 	@Column(name = "CIDADE")
 	private String cidade;
 
-	@OneToMany(mappedBy="editora")
+	@Column(name = "ANO_FUNDACAO")
+	private int anoFundacao;
+
+	@OneToMany(mappedBy = "editora")
 	private List<Livro> livros;
 	// CONSTRUTOR, GETTERS E SETTERS, MÉTODO toString
+
+	public Editora(String nome, String cidade, int anoFundacao) {
+		super();
+		this.nome = nome;
+		this.cidade = cidade;
+		this.anoFundacao = anoFundacao;
+	}
+
+	public Editora() {
+	}
+
+	@Override
+	public String toString() {
+		return "Editora [editoraID=" + editoraID + ", nome=" + nome + ", cidade=" + cidade + ", anoFundacao="
+				+ anoFundacao + "]";
+	}
 
 }

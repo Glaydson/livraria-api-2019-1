@@ -54,6 +54,14 @@ public class Livro {
 		this.numeroPaginas = numeroPaginas;
 		this.preco = preco;
 	}
+
+	@Override
+	public String toString() {
+		return "Livro [livroID=" + livroID + ", titulo=" + titulo + ", dataPublicacao=" + dataPublicacao
+				+ ", numeroPaginas=" + numeroPaginas + ", preco=" + preco + "]";
+	}
+	
+	
 	
 	
 }

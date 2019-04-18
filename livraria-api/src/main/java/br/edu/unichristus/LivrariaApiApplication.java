@@ -10,7 +10,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import br.edu.unichristus.entidades.Editora;
 import br.edu.unichristus.entidades.Livro;
+import br.edu.unichristus.servicos.EditoraService;
 import br.edu.unichristus.servicos.LivroService;
 
 @SpringBootApplication
@@ -18,6 +20,9 @@ public class LivrariaApiApplication implements CommandLineRunner {
 
 	@Autowired
 	private LivroService servicoLivros;
+	
+	@Autowired
+	private EditoraService servicoEditoras;
 
 	public static void main(String[] args) {
 		SpringApplication.run(LivrariaApiApplication.class, args);
@@ -65,6 +70,10 @@ public class LivrariaApiApplication implements CommandLineRunner {
 		List<Livro> livrosTituloPaginas = this.servicoLivros
 				.buscarPeloTituloENumeroPaginas("de", 250);
 		livrosTituloPaginas.forEach(System.out::println);
+		
+		// Criar e salvar uma editora
+		Editora nova = new Editora("Nova", "Fortaleza", 2019);
+		this.servicoEditoras.salvar(nova);
 
 	}
 
