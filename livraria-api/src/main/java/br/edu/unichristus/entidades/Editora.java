@@ -32,8 +32,10 @@ public class Editora {
 
 	@OneToMany(mappedBy = "editora")
 	private List<Livro> livros;
+	
 	// CONSTRUTOR, GETTERS E SETTERS, MÉTODO toString
 
+	// Construtor explícito
 	public Editora(String nome, String cidade, int anoFundacao) {
 		super();
 		this.nome = nome;
@@ -41,6 +43,7 @@ public class Editora {
 		this.anoFundacao = anoFundacao;
 	}
 
+	// Construtor implícito é requerido pelo Spring quando existe um explícito
 	public Editora() {
 	}
 

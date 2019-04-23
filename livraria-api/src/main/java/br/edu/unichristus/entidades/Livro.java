@@ -44,15 +44,18 @@ public class Livro {
 	@JoinColumn(name="EDITORA_ID")
 	private Editora editora;
 
+	// Construtor implícito é requerido pelo Spring quando existe um explícito
 	public Livro() {
 	}
 
-	public Livro(String titulo, LocalDate dataPublicacao, int numeroPaginas, BigDecimal preco) {
+	// Construtor explícito
+	public Livro(String titulo, LocalDate dataPublicacao, int numeroPaginas, BigDecimal preco, Editora e) {
 		super();
 		this.titulo = titulo;
 		this.dataPublicacao = dataPublicacao;
 		this.numeroPaginas = numeroPaginas;
 		this.preco = preco;
+		this.editora = e;
 	}
 
 	@Override

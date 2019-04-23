@@ -20,7 +20,7 @@ public class LivrariaApiApplication implements CommandLineRunner {
 
 	@Autowired
 	private LivroService servicoLivros;
-	
+
 	@Autowired
 	private EditoraService servicoEditoras;
 
@@ -30,7 +30,13 @@ public class LivrariaApiApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Livro livro0 = new Livro("Java Como Programar", LocalDate.of(2015, 5, 1), 1300, new BigDecimal(250.0));
+		
+		// Cria e salva um livro
+		Livro livro0 = new Livro();
+		livro0.setTitulo("Java Como Programar");
+		livro0.setDataPublicacao(LocalDate.of(2015, 5, 1));
+		livro0.setNumeroPaginas(1300);
+		livro0.setPreco(new BigDecimal(250.0));
 		this.servicoLivros.salvar(livro0);
 
 		// Buscando um livro pelo seu ID
@@ -67,14 +73,53 @@ public class LivrariaApiApplication implements CommandLineRunner {
 		System.out.println(livro5);
 
 		// Buscar um livro pelo titulo e número de páginas
-		List<Livro> livrosTituloPaginas = this.servicoLivros
-				.buscarPeloTituloENumeroPaginas("de", 250);
+		List<Livro> livrosTituloPaginas = this.servicoLivros.buscarPeloTituloENumeroPaginas("de", 250);
 		livrosTituloPaginas.forEach(System.out::println);
-		
+
 		// Criar e salvar uma editora
 		Editora nova = new Editora("Nova", "Fortaleza", 2019);
 		this.servicoEditoras.salvar(nova);
 
+		// EXERCÍCIOS COM DATAS
+		System.out.println("*** LIVROS PUBLICADOS DEPOIS DE 01/01/1995 ***");
+		List<Livro> livrosDepois95 = this.servicoLivros.buscarPelaDataPublicacaoMaiorQue(LocalDate.of(1995, 01, 01));
+		livrosDepois95.forEach(System.out::println);
+
+		System.out.println("*** LIVROS PUBLICADOS ANTES DE 30/12/1972 ***");
+		List<Livro> livrosAntes72 = this.servicoLivros.buscarPelaDataPublicacaoMenorQue(LocalDate.of(1972, 12, 31));
+		livrosAntes72.forEach(System.out::println);
+
+		System.out.println("*** LIVROS PUBLICADOS ENTRE 01/01/1943 E 15/11/1955 ***");
+		List<Livro> livrosEntre43e55 = this.servicoLivros.buscarPelaDataPublicacaoEntre(LocalDate.of(1943, 01, 01),
+				LocalDate.of(1955, 11, 15));
+		livrosEntre43e55.forEach(System.out::println);
+		
+		// CRUD COM EDITORAS
+		
+		// 1 - Alterar cidade da editora Bookman para Porto Alegre
+		Editora bookman = this.servicoEditoras.buscarPeloNome("Bookman");
+		bookman.setCidade("Porto Alegre");
+		this.servicoEditoras.salvar(bookman);
+		
+		// 2 - Remover a editora Moderna
+		Editora moderna = this.servicoEditoras.buscarPeloNome("Moderna");
+		this.servicoEditoras.remover(moderna);
+		
+		// 3 - Buscar as editoras com sede no Rio de Janeiro
+		System.out.println("*** EDITORAS DO RIO DE JANEIRO ***");
+		List<Editora> editorasRio = this.servicoEditoras.buscarPelaCidade("Rio de Janeiro");
+		editorasRio.forEach(System.out::println);
+		
+		// 4 - Buscar as editoras cujo nome inicie pelas letras "A" ou "B"
+		System.out.println("*** EDITORAS INICIANDO POR A OU B ***");
+		List<Editora> editorasIniciandoAouB = this.servicoEditoras.buscarIniciandoPor("A", "B");
+		editorasIniciandoAouB.forEach(System.out::println);
+		
+		// 5 - Buscar as editoras do Rio de Janeiro e de São Paulo
+		System.out.println("*** EDITORAS DO RIO DE JANEIRO E DE SÃO PAULO ***");
+		List<Editora> editorasRioSaoPaulo = this.servicoEditoras.buscarPorCidades("Rio de Janeiro", "São Paulo");
+		editorasRioSaoPaulo.forEach(System.out::println);
+		
 	}
 
 }
