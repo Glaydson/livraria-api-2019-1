@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import br.edu.unichristus.entidades.Editora;
 import br.edu.unichristus.entidades.Livro;
 
 public interface LivroRepository extends JpaRepository<Livro, Long> {
@@ -70,5 +71,11 @@ public interface LivroRepository extends JpaRepository<Livro, Long> {
 
 	// Livros cujo autor seja de um dado país
 	public List<Livro> findByAutoresPais(String pais);
+
+	public List<Livro> findByAutoresAutorIDEqualsAndEditoraNomeEquals
+		(Long idAutor, String nomeEditora);
+	
+	public List<Livro> findByAutoresNomeContainingAndEditoraEquals
+		(String nomeAutor, Editora e);
 
 }

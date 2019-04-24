@@ -10,8 +10,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import br.edu.unichristus.entidades.Autor;
 import br.edu.unichristus.entidades.Editora;
 import br.edu.unichristus.entidades.Livro;
+import br.edu.unichristus.servicos.AutorService;
 import br.edu.unichristus.servicos.EditoraService;
 import br.edu.unichristus.servicos.LivroService;
 
@@ -23,6 +25,9 @@ public class LivrariaApiApplication implements CommandLineRunner {
 
 	@Autowired
 	private EditoraService servicoEditoras;
+	
+	@Autowired
+	private AutorService servicoAutores;
 
 	public static void main(String[] args) {
 		SpringApplication.run(LivrariaApiApplication.class, args);
@@ -119,6 +124,65 @@ public class LivrariaApiApplication implements CommandLineRunner {
 		System.out.println("*** EDITORAS DO RIO DE JANEIRO E DE SÃO PAULO ***");
 		List<Editora> editorasRioSaoPaulo = this.servicoEditoras.buscarPorCidades("Rio de Janeiro", "São Paulo");
 		editorasRioSaoPaulo.forEach(System.out::println);
+		
+		// INSERINDO ENTIDADES NA ORDEM CORRETA
+		// Incluindo uma nova editora
+		Editora e = new Editora("Érica", "Rio de Janeiro", 1937);
+
+		// Incluindo um novo livro. É preciso dizer qual é a editora
+		Livro l = new Livro("Java em 30 dias", LocalDate.now(), 250, new BigDecimal("15.00"), e);
+
+		// Criando uma variável para armazenar a lista de livros do autor
+		List<Livro> livrosJose = (new ArrayList<Livro>() {
+		{
+		add(l);
+		}
+		});
+
+		// Incluindo um novo autor
+		Autor a = new Autor("Antonio José", "Brasil", livrosJose);
+
+		// SALVANDO AS ENTIDADES - OBSERVE A ORDEM
+		this.servicoEditoras.salvar(e);
+		this.servicoLivros.salvar(l);
+		this.servicoAutores.salvar(a);
+
+		// INSERINDO LIVRO PARA AUTOR E EDITORA JÁ EXISTENTES
+		// Cria um novo livro, editora Campus
+		Livro livro2 = new Livro("Java em 90 dias", LocalDate.of(2015, 3, 30), 300, new BigDecimal("50.00"),
+		servicoEditoras.buscarPeloNome("Campus"));
+
+		// Busca um autor pelo seu ID
+		Autor antonio = servicoAutores.buscarPeloID(7L);
+
+		// Adiciona o livro no autor
+		antonio.getLivros().add(livro2);
+
+		// Salva as alterações no livro e autor
+		this.servicoLivros.salvar(livro2);
+		this.servicoAutores.salvar(antonio);
+
+		// TODOS OS LIVROS DA EDITORA CAMPUS
+		System.out.println("*** LIVROS DA EDITORA CAMPUS ***");
+		Editora campus = this.servicoEditoras.buscarPeloNome("Campus");
+		campus.getLivros().forEach(System.out::println);
+		
+		//TODOS OS LIVROS DE UM AUTOR
+		System.out.println("*** LIVROS DE UM AUTOR ***");
+		Autor autorID7 = this.servicoAutores.buscarPeloID(7L);
+		autorID7.getLivros().forEach(System.out::println);
+
+		// TODOS OS LIVROS DE UM AUTOR E EDITORA
+		System.out.println("*** LIVROS DE UM AUTOR E EDITORA ***");
+		List<Livro> livrosAutor7EditoraCampus = 
+				this.servicoLivros.buscarPeloIDAutorENomeEditora(7L, "Campus");
+		livrosAutor7EditoraCampus.forEach(System.out::println);
+		
+		List<Livro> livrosAutorAntonioEditoraCampus = 
+				this.servicoLivros.buscarPeloNomeAutorEEditora
+					("Antonio", this.servicoEditoras.buscarPeloNome("Campus"));
+		livrosAutorAntonioEditoraCampus.forEach(System.out::println);
+		
 		
 	}
 

@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import br.edu.unichristus.entidades.Autor;
 import br.edu.unichristus.repositorios.AutorRepository;
 
+@Service
 public class AutorService {
 	@Autowired
 	private AutorRepository repo;

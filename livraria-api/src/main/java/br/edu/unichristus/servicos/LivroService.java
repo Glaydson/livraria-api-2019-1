@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.edu.unichristus.entidades.Editora;
 import br.edu.unichristus.entidades.Livro;
 import br.edu.unichristus.repositorios.LivroRepository;
 
@@ -119,6 +120,17 @@ public class LivroService {
 	// Buscar livros publicados entre duas datas informadas
 	public List<Livro> buscarPelaDataPublicacaoEntre(LocalDate data1, LocalDate data2) {
 		return this.repo.findByDataPublicacaoBetween(data1, data2);
+	}
+
+	public List<Livro> buscarPeloIDAutorENomeEditora(Long idAutor, String nomeEditora) {
+		return this.repo
+				.findByAutoresAutorIDEqualsAndEditoraNomeEquals
+					(idAutor, nomeEditora);
+	}
+	
+	public List<Livro> buscarPeloNomeAutorEEditora(String nomeAutor, Editora e) {
+		return this.repo
+				.findByAutoresNomeContainingAndEditoraEquals(nomeAutor, e);
 	}
 
 }
