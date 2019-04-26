@@ -25,7 +25,7 @@ public class Livro {
 	@Column(name = "LIVRO_ID")
 	private Long livroID;
 
-	@Column(name = "TITULO")
+	@Column(name = "TITULO", nullable = false)
 	private String titulo;
 
 	@Column(name = "DATA_PUBLICACAO")
