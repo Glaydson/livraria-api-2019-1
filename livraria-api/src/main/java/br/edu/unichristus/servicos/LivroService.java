@@ -24,10 +24,6 @@ public class LivroService {
 		return this.repo.save(l);
 	}
 	
-//	public Livro salvar(Livro l) {
-//		this.repo.save(l);
-//	}
-
 	// Busca um livro pelo ID
 	public Livro buscarPeloID(long idLivro) {
 		 Optional<Livro> livro = this.repo.findById(idLivro);

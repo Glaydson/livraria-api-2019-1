@@ -16,9 +16,8 @@ public class AutorService {
 
 	/* MÉTODOS CRUD */
 
-	public void salvar(Autor autor) {
-		this.repo.save(autor);
-		System.out.println("AUTOR " + autor.getAutorID() + " SALVO!");
+	public Autor salvar(Autor autor) {
+		return this.repo.save(autor);
 	}
 
 	public List<Autor> buscarTodos() {
