@@ -14,6 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 
 @Entity
@@ -38,10 +40,12 @@ public class Livro {
 	private BigDecimal preco;
 	
 	@ManyToMany(mappedBy = "livros")
+	@JsonIgnoreProperties("livros")
 	private List<Autor> autores;
 	
 	@ManyToOne
 	@JoinColumn(name="EDITORA_ID")
+	@JsonIgnoreProperties("livros")
 	private Editora editora;
 
 	// Construtor implícito é requerido pelo Spring quando existe um explícito

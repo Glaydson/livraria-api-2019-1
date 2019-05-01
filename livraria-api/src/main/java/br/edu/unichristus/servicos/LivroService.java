@@ -3,12 +3,14 @@ package br.edu.unichristus.servicos;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.unichristus.entidades.Editora;
 import br.edu.unichristus.entidades.Livro;
+import br.edu.unichristus.excecoes.LivroNaoEncontradoException;
 import br.edu.unichristus.repositorios.LivroRepository;
 
 @Service
@@ -18,13 +20,20 @@ public class LivroService {
 	private LivroRepository repo;
 
 	// Salva um livro
-	public void salvar(Livro l) {
-		this.repo.save(l);
+	public Livro salvar(Livro l) {
+		return this.repo.save(l);
 	}
+	
+//	public Livro salvar(Livro l) {
+//		this.repo.save(l);
+//	}
 
 	// Busca um livro pelo ID
 	public Livro buscarPeloID(long idLivro) {
-		return this.repo.findById(idLivro).get();
+		 Optional<Livro> livro = this.repo.findById(idLivro);
+		 if (!livro.isPresent()) 
+			 throw new LivroNaoEncontradoException(idLivro);
+		 return livro.get();
 	}
 
 	// Busca livros por uma lista de IDs
