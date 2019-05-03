@@ -3,6 +3,8 @@ package br.edu.unichristus.controladores;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +46,7 @@ public class LivroController {
 	}
 	
 	@PostMapping("/novo")
-	public ResponseEntity<Object> salvar(@RequestBody Livro livro) {
+	public ResponseEntity<Object> salvar(@Valid @RequestBody Livro livro) {
 		Livro livroSalvo = servicoLivros.salvar(livro);
 		URI local = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(livroSalvo.getLivroID()).toUri();

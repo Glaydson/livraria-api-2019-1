@@ -104,7 +104,7 @@ public class LivrariaApiApplication implements CommandLineRunner {
 		// 1 - Alterar cidade da editora Bookman para Porto Alegre
 		Editora bookman = this.servicoEditoras.buscarPeloNome("Bookman");
 		bookman.setCidade("Porto Alegre");
-		this.servicoEditoras.salvar(bookman);
+		this.servicoEditoras.salvarParaAtualizar(bookman);
 		
 		// 2 - Remover a editora Moderna
 		Editora moderna = this.servicoEditoras.buscarPeloNome("Moderna");
