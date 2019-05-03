@@ -20,16 +20,16 @@ public class LivroService {
 	private LivroRepository repo;
 
 	// Salva um livro
-	public Livro salvar(Livro l) {
-		return this.repo.save(l);
+	public Livro salvar(Livro livro) {
+		return this.repo.save(livro);
 	}
-	
+
 	// Busca um livro pelo ID
 	public Livro buscarPeloID(long idLivro) {
-		 Optional<Livro> livro = this.repo.findById(idLivro);
-		 if (!livro.isPresent()) 
-			 throw new LivroNaoEncontradoException(idLivro);
-		 return livro.get();
+		Optional<Livro> livro = this.repo.findById(idLivro);
+		if (!livro.isPresent())
+			throw new LivroNaoEncontradoException(idLivro);
+		return livro.get();
 	}
 
 	// Busca livros por uma lista de IDs
@@ -128,14 +128,11 @@ public class LivroService {
 	}
 
 	public List<Livro> buscarPeloIDAutorENomeEditora(Long idAutor, String nomeEditora) {
-		return this.repo
-				.findByAutoresAutorIDEqualsAndEditoraNomeEquals
-					(idAutor, nomeEditora);
+		return this.repo.findByAutoresAutorIDEqualsAndEditoraNomeEquals(idAutor, nomeEditora);
 	}
-	
+
 	public List<Livro> buscarPeloNomeAutorEEditora(String nomeAutor, Editora e) {
-		return this.repo
-				.findByAutoresNomeContainingAndEditoraEquals(nomeAutor, e);
+		return this.repo.findByAutoresNomeContainingAndEditoraEquals(nomeAutor, e);
 	}
 
 }

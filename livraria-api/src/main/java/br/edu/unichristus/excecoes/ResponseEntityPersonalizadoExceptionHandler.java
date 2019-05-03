@@ -20,7 +20,7 @@ public class ResponseEntityPersonalizadoExceptionHandler extends ResponseEntityE
 	public final ResponseEntity<DetalhesErro> handleUserNotFoundException(LivroNaoEncontradoException ex,
 			WebRequest request) {
 		DetalhesErro detalhesErro = new DetalhesErro(LocalDate.now(), ex.getMessage(), request.getDescription(false));
-		return new ResponseEntity<>(detalhesErro, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<DetalhesErro>(detalhesErro, HttpStatus.NOT_FOUND);
 	}
 
 	@ExceptionHandler(Exception.class)

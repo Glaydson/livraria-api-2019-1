@@ -2,6 +2,9 @@ package br.edu.unichristus.excecoes;
 
 import java.time.LocalDate;
 
+import lombok.Data;
+
+@Data
 public class DetalhesErro {
 	private LocalDate timestamp;
 	private String message;

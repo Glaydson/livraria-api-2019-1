@@ -16,12 +16,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
-import lombok.Singular;
 
 @Entity
 @Table(name = "TB_LIVROS")
@@ -34,17 +35,23 @@ public class Livro {
 
 	@Column(name = "TITULO")
 	@NotNull
-	@Size(min=2, max=50, message="O título deve ter entre 2 e 50 caracteres")
+	@Size(min = 2, message = "O título precisa ter pelo menos 2 caracteres")
+	@Size(max = 500, message = "O título só pode ter no máximo 500 caracteres")
 	private String titulo;
 	
 	@Column(name = "DATA_PUBLICACAO")
+	@NotNull
+	@PastOrPresent(message = "A data de publicação não pode ser posterior à data atual")
 	private LocalDate dataPublicacao;
 
 	@Column(name = "NUMERO_PAGINAS")
+	@NotNull
 	@Min(value=50, message="O livro deve ter pelo menos 50 páginas")
 	private int numeroPaginas;
 
 	@Column(name = "PRECO")
+	@NotNull
+	@Positive(message = "O preço do livro deve ser maior que zero")
 	private BigDecimal preco;
 	
 	@ManyToMany(mappedBy = "livros", fetch = FetchType.EAGER)

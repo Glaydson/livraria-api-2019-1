@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -23,12 +24,15 @@ public class Editora {
 	private Long editoraID;
 
 	@Column(name = "NOME")
+	@NotNull
 	private String nome;
 
 	@Column(name = "CIDADE")
+	@NotNull
 	private String cidade;
 
 	@Column(name = "ANO_FUNDACAO")
+	@NotNull
 	private int anoFundacao;
 
 	@OneToMany(mappedBy = "editora", fetch = FetchType.EAGER)
