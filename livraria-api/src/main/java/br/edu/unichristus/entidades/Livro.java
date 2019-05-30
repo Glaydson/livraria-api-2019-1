@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -54,8 +55,8 @@ public class Livro {
 	@Positive(message = "O preço do livro deve ser maior que zero")
 	private BigDecimal preco;
 	
-	@ManyToMany(mappedBy = "livros", fetch = FetchType.EAGER)
-	@JsonIgnoreProperties("livros")
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "TB_LIVROS_AUTORES")
 	private List<Autor> autores;
 	
 	@ManyToOne

@@ -12,6 +12,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 
 @Data
@@ -29,9 +31,9 @@ public class Autor {
 	@Column(name = "PAIS")
 	private String pais;
 
-	// Autor é o proprietário da relação many to many
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "TB_AUTORES_LIVROS")
+	// Livro é o proprietário da relação many to many
+	@ManyToMany(mappedBy = "autores", fetch = FetchType.EAGER)
+	@JsonIgnoreProperties("autores")
 	private List<Livro> livros;
 
 	// Construtor implícito é requerido pelo Spring quando existe um explícito
