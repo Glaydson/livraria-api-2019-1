@@ -35,7 +35,7 @@ public class LivrariaApiApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		
+		/*
 		// Cria e salva um livro
 		Livro livro0 = new Livro();
 		livro0.setTitulo("Java Como Programar");
@@ -183,7 +183,7 @@ public class LivrariaApiApplication implements CommandLineRunner {
 					("Antonio", this.servicoEditoras.buscarPeloNome("Campus"));
 		livrosAutorAntonioEditoraCampus.forEach(System.out::println);
 		
-		
+		*/
 	}
 
 }
